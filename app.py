@@ -6,7 +6,7 @@ import en_core_web_sm
 from spacy.lang.en.stop_words import STOP_WORDS  # noqa: F401
 from collections import Counter
 from string import punctuation
- 
+
 
 # Load English tokenizer, tagger, parser, NER and word vectors
 nlp = en_core_web_sm.load()
@@ -25,7 +25,7 @@ def index():
         
         # Generate dependency parse
         options = {"compact": True, "bg": "#09a3d5",
-           "color": "white", "distance": 90}
+                   "color": "white", "distance": 90}
 
         dep_svg = displacy.render(doc, style="dep",page=True, options=options)
         dep_svg = displacy.render(doc, style="dep", page=True, options=options)  # noqa: F821
@@ -96,8 +96,8 @@ def count_syllables(word):
     word = word.lower()
     count = 0
     vowels = "aeiouy"
-    vowels = "aeiouy"  # noqa: F821els:
-        count += 1
+    vowels = "aeiouy"  # noqa: F821
+    count += 1
     for index in range(1, len(word)):
         if word[index] in vowels and word[index - 1] not in vowels:
             count += 1
@@ -110,10 +110,11 @@ def summarize_text(doc):
     keyword = []
     pos_tag = ['PROPN', 'ADJ', 'NOUN', 'VERB']
     pos_tag = ['PROPN', 'ADJ', 'NOUN', 'VERB']  # noqa: F821
-        if(token.text in STOP_WORDS or token.text in punctuation):
-            continue
-        if(token.pos_ in pos_tag):
+    if token.text not in STOP_WORDS and token.text not in punctuation:
+        if token.pos_ in pos_tag:
             keyword.append(token.text)
+    if(token.pos_ in pos_tag):
+        keyword.append(token.text)
     
     freq_word = Counter(keyword)
     max_freq = Counter(keyword).most_common(1)[0][1]
@@ -122,7 +123,7 @@ def summarize_text(doc):
         
     sent_strength = {}
     for sent in doc.sents:
-    for sent in doc.sents:  # noqa: F821
+        for sent in doc.sents:  # noqa: F821
             if word.text in freq_word.keys():
                 if sent in sent_strength.keys():
                     sent_strength[sent] += freq_word[word.text]
@@ -149,6 +150,5 @@ def api_analyze():
     }
     
     return jsonify(analysis)
-    return jsonify(analysis)  # noqa: F821
 if __name__ == "__main__":
     app.run(debug=True)
