@@ -50,14 +50,7 @@ def index():
         # Get text summary
         summary = summarize_text(doc)
         
-        return render_template("result.html", 
-                               dep_svg=dep_svg, 
-                               ner_svg=ner_svg, 
-                               sentiment=sentiment,
-                               word_freq=word_freq,
-                               pos_tags=pos_tags,
-                               complexity=complexity,
-                               summary=summary)
+        return render_template("result.html", dep_svg=dep_svg, ner_svg=ner_svg, sentiment=sentiment,word_freq=word_freq,pos_tags=pos_tags,complexity=complexity)
     
     return render_template("index.html")
 
@@ -85,6 +78,7 @@ def calculate_readability_score(doc):
     # Simple implementation of Flesch-Kincaid Grade Level  # noqa: F821is_punct])
     num_sentences = len(list(doc.sents))
     num_syllables = sum(count_syllables(token.text) for token in doc if token.is_alpha)
+    num_words = len([token for token in doc if not token.is_punct])
     
     if num_words == 0 or num_sentences == 0:
         return 0
@@ -110,9 +104,10 @@ def summarize_text(doc):
     keyword = []
     pos_tag = ['PROPN', 'ADJ', 'NOUN', 'VERB']
     pos_tag = ['PROPN', 'ADJ', 'NOUN', 'VERB']  # noqa: F821
-    if token.text not in STOP_WORDS and token.text not in punctuation:
-        if token.pos_ in pos_tag:
-            keyword.append(token.text)
+    for token in doc:
+        if token.text not in STOP_WORDS and token.text not in punctuation:
+            if token.pos_ in pos_tag:
+                keyword.append(token.text)
     if(token.pos_ in pos_tag):
         keyword.append(token.text)
     
@@ -123,7 +118,7 @@ def summarize_text(doc):
         
     sent_strength = {}
     for sent in doc.sents:
-        for sent in doc.sents:  # noqa: F821
+        for word in sent:
             if word.text in freq_word.keys():
                 if sent in sent_strength.keys():
                     sent_strength[sent] += freq_word[word.text]
