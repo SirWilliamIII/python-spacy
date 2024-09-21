@@ -40,8 +40,7 @@ requests==2.31.0
 rich==13.4.2
 shellingham==1.5.0
 smart_open==6.3.0
-spacy==3.7.2
-spacy-legacy==3.0.12
+spacy==3.5.3
 spacy-loggers==1.0.4
 srsly==2.4.7
 textblob==0.17.1
@@ -57,3 +56,4 @@ Werkzeug==2.3.6
 wrapt==1.15.0
 zipp==3.16.2
 zstandard==0.21.0
+https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.5.0/en_core_web_sm-3.5.0-py3-none-any.whlspacy-legacy==3.0.12

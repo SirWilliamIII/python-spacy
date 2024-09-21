@@ -2,14 +2,15 @@ import spacy
 from spacy import displacy
 from flask import Flask, render_template, request, jsonify
 from textblob import TextBlob
-
 from spacy.lang.en.stop_words import STOP_WORDS
+import en_core_web_sm
 from collections import Counter
 from string import punctuation
 import re
 
 # Load English tokenizer, tagger, parser, NER and word vectors
-nlp = spacy.load("en_core_web_sm") 
+nlp = en_core_web_sm.load()
+
 app = Flask(__name__)
 
 @app.route("/", methods=["GET", "POST"])
