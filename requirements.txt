@@ -28,7 +28,6 @@ mdurl==0.1.2
 murmurhash==1.0.9
 nltk==3.8.1
 numpy==1.25.2 --only-binary=numpy
-pip=24.0
 packaging==23.1
 preshed==3.0.8
 pycparser==2.21
@@ -39,14 +38,13 @@ PySocks==1.7.1
 regex==2023.8.8
 requests==2.31.0
 rich==13.4.2
-setuptools=70.3.0
 shellingham==1.5.0
 smart_open==6.3.0
-spacy==3.5.3
+spacy==3.7.4
 spacy-loggers==1.0.4
 srsly==2.4.7
 textblob==0.17.1
-thinc==8.1.11
+thinc==8.2.4
 tqdm==4.65.0
 typer
 typer-slim
@@ -55,8 +53,6 @@ urllib3==2.0.4
 wasabi
 weasel
 Werkzeug==2.3.6
-wheel=0.44.0
 wrapt==1.15.0
 zipp==3.16.2
 zstandard==0.21.0
-https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.5.0/en_core_web_sm-3.5.0-py3-none-any.whlspacy-legacy==3.0.12
