@@ -25,18 +25,19 @@
 
       <h2 class="text-2xl font-bold mt-8 mb-2">Word Frequency</h2>
       <ul class="list-disc ml-6">
-        <li>{{ word }}: {{ freq }}</li>
+        {% for word in word_freq %}
+          <li>{{ word }}: </li>
+        {% endfor %}
       </ul>
-
       <div class="mt-8">
-        <h2 class="text-2xl font-bold mb-2">Part-of-Speech Tags</h2>
+        <h2 class="text-2xl font-bold mb-2">Lemmatization</h2>
         <div class="flex flex-wrap">
-          {% for word, pos in pos_tags %}
-            <div class="w-1/5 p-2">{{ word }}: {{ pos }}</div>
+          {% for word, lemma in lemmas %}
+            <div class="w-1/5 p-1"><strong>{{ word }}:</strong> {{ lemma }}</div>
           {% endfor %}
         </div>
-      </div>
-
+        </div>
+        
       <h2 class="text-2xl font-bold mt-8 mb-2">Text Complexity</h2>
       <ul class="list-disc ml-6">
         <li>Number of words: {{ complexity.num_words }}</li>
@@ -44,6 +45,15 @@
         <li>Average word length: {{ complexity.avg_word_length }}</li>
         <li>Readability score: {{ complexity.readability_score }}</li>
       </ul>
+    
+      <div class="mt-8">
+        <h2 class="text-2xl font-bold mb-2">Part-of-Speech Tags</h2>
+        <div class="flex flex-wrap">
+          {% for word, pos in pos_tags %}
+            <div class="w-1/5 p-1"><strong>{{ word }}:</strong> {{ pos }}</div>
+          {% endfor %}
+        </div>
+      </div>
 
       <div class="mt-8">
         <a href="/" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
