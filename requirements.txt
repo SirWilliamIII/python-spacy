@@ -16,8 +16,6 @@ gunicorn
 h2
 hpack
 hyperframe
-spacy
-thinc
 idna
 importlib_metadata
 itsdangerous
