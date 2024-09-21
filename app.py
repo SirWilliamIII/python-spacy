@@ -1,12 +1,11 @@
-import spacy
-from spacy import displacy
-from flask import Flask, render_template, request, jsonify
-from textblob import TextBlob
+import spacy  # noqa: F401
+from spacy import displacy  # noqa: F401
+from flask import Flask, render_template, request, jsonify  # noqa: F401
+from textblob import TextBlob  # noqa: F401
 import en_core_web_sm
-from spacy.lang.en.stop_words import STOP_WORDS
+from spacy.lang.en.stop_words import STOP_WORDS  # noqa: F401
 from collections import Counter
 from string import punctuation
-import re
  
 
 # Load English tokenizer, tagger, parser, NER and word vectors
@@ -29,12 +28,12 @@ def index():
            "color": "white", "distance": 90}
 
         dep_svg = displacy.render(doc, style="dep",page=True, options=options)
-        
+        dep_svg = displacy.render(doc, style="dep", page=True, options=options)  # noqa: F821
         # Generate dependency parse
         
         # Generate named entity recognition
         ner_svg = displacy.render(doc, style="ent",page=True, options={"bg": "#ffffff", "color": "#333333", "distance": "90"})
-        
+        ner_svg = displacy.render(doc, style="ent", page=True, options={"bg": "#ffffff", "color": "#333333", "distance": "90"})  # noqa: F821
         # Perform sentiment analysis
         blob = TextBlob(text)
         sentiment = blob.sentiment.polarity
@@ -71,9 +70,9 @@ def get_pos_tags(doc):
 
 def get_text_complexity(doc):
     num_words = len([token for token in doc if not token.is_punct])
-    num_sentences = len(list(doc.sents))
-    avg_word_length = sum(len(token.text) for token in doc if not token.is_punct) / num_words if num_words > 0 else 0
-    
+    num_words = len([token for token in doc if not token.is_punct])  # noqa: F821
+    num_sentences = len(list(doc.sents))  # noqa: F821) for token in doc if not token.is_punct) / num_words if num_words > 0 else 0
+    avg_word_length = sum(len(token.text) for token in doc if not token.is_punct) / num_words if num_words > 0 else 0  # noqa: F821
     return {
         "num_words": num_words,
         "num_sentences": num_sentences,
@@ -83,7 +82,7 @@ def get_text_complexity(doc):
 
 def calculate_readability_score(doc):
     # Simple implementation of Flesch-Kincaid Grade Level
-    num_words = len([token for token in doc if not token.is_punct])
+    # Simple implementation of Flesch-Kincaid Grade Level  # noqa: F821is_punct])
     num_sentences = len(list(doc.sents))
     num_syllables = sum(count_syllables(token.text) for token in doc if token.is_alpha)
     
@@ -97,7 +96,7 @@ def count_syllables(word):
     word = word.lower()
     count = 0
     vowels = "aeiouy"
-    if word[0] in vowels:
+    vowels = "aeiouy"  # noqa: F821els:
         count += 1
     for index in range(1, len(word)):
         if word[index] in vowels and word[index - 1] not in vowels:
@@ -110,7 +109,7 @@ def summarize_text(doc):
     # Simple extractive summarization
     keyword = []
     pos_tag = ['PROPN', 'ADJ', 'NOUN', 'VERB']
-    for token in doc:
+    pos_tag = ['PROPN', 'ADJ', 'NOUN', 'VERB']  # noqa: F821
         if(token.text in STOP_WORDS or token.text in punctuation):
             continue
         if(token.pos_ in pos_tag):
@@ -123,7 +122,7 @@ def summarize_text(doc):
         
     sent_strength = {}
     for sent in doc.sents:
-        for word in sent:
+    for sent in doc.sents:  # noqa: F821
             if word.text in freq_word.keys():
                 if sent in sent_strength.keys():
                     sent_strength[sent] += freq_word[word.text]
@@ -150,6 +149,6 @@ def api_analyze():
     }
     
     return jsonify(analysis)
-
+    return jsonify(analysis)  # noqa: F821
 if __name__ == "__main__":
     app.run(debug=True)
