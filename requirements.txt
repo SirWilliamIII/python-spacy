@@ -1,59 +1,59 @@
-annotated-types @ file:///home/conda/feedstock_root/build_artifacts/annotated-types_1716290248287/work
-blinker @ file:///home/conda/feedstock_root/build_artifacts/blinker_1715091184126/work
-blis @ file:///Users/runner/miniforge3/conda-bld/cython-blis_1696148899313/work
-Brotli @ file:///Users/runner/miniforge3/conda-bld/brotli-split_1725267563793/work
-catalogue @ file:///Users/runner/miniforge3/conda-bld/catalogue_1695626443928/work
-certifi @ file:///home/conda/feedstock_root/build_artifacts/certifi_1725278078093/work/certifi
-cffi @ file:///Users/runner/miniforge3/conda-bld/cffi_1725560574711/work
-charset-normalizer @ file:///home/conda/feedstock_root/build_artifacts/charset-normalizer_1698833585322/work
-click @ file:///home/conda/feedstock_root/build_artifacts/click_1692311806742/work
-cloudpathlib @ file:///home/conda/feedstock_root/build_artifacts/cloudpathlib-meta_1725397841369/work
-colorama @ file:///home/conda/feedstock_root/build_artifacts/colorama_1666700638685/work
-confection @ file:///Users/runner/miniforge3/conda-bld/confection_1701179345946/work
-cymem @ file:///Users/runner/miniforge3/conda-bld/cymem_1695443580499/work
-en-core-web-sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.1/en_core_web_sm-3.7.1-py3-none-any.whl#sha256=86cc141f63942d4b2c5fcee06630fd6f904788d2f0ab005cce45aadb8fb73889
-Flask @ file:///home/conda/feedstock_root/build_artifacts/flask_1712667726126/work
-h2 @ file:///home/conda/feedstock_root/build_artifacts/h2_1634280454336/work
+annotated-types
+blinker 
+blis 
+Brotli 
+catalogue 
+certifi 
+cffi 
+charset-normalizer 
+click 
+cloudpathlib 
+colorama 
+confection 
+cymem 
+en-core-web-sm 
+Flask 
+h2 
 hpack==4.0.0
-hyperframe @ file:///home/conda/feedstock_root/build_artifacts/hyperframe_1619110129307/work
-idna @ file:///home/conda/feedstock_root/build_artifacts/idna_1726459485162/work
-importlib_metadata @ file:///home/conda/feedstock_root/build_artifacts/importlib-metadata_1726082825846/work
-itsdangerous @ file:///home/conda/feedstock_root/build_artifacts/itsdangerous_1713372668944/work
-Jinja2 @ file:///home/conda/feedstock_root/build_artifacts/jinja2_1715127149914/work
-joblib @ file:///home/conda/feedstock_root/build_artifacts/joblib_1714665484399/work
-langcodes @ file:///home/conda/feedstock_root/build_artifacts/langcodes_1636741340529/work
-markdown-it-py @ file:///home/conda/feedstock_root/build_artifacts/markdown-it-py_1686175045316/work
-MarkupSafe @ file:///Users/runner/miniforge3/conda-bld/markupsafe_1724959497253/work
-mdurl @ file:///home/conda/feedstock_root/build_artifacts/mdurl_1704317613764/work
-murmurhash @ file:///Users/runner/miniforge3/conda-bld/murmurhash_1695449903748/work
-nltk @ file:///home/conda/feedstock_root/build_artifacts/nltk_1724022741962/work
-numpy @ file:///Users/runner/miniforge3/conda-bld/numpy_1707225416355/work/dist/numpy-1.26.4-cp310-cp310-macosx_11_0_arm64.whl#sha256=14c628943f67e9c10d22faa9c1cdcbf69c3192e88f2f597d03b77a252e589567
-packaging @ file:///home/conda/feedstock_root/build_artifacts/packaging_1718189413536/work
-preshed @ file:///Users/runner/miniforge3/conda-bld/preshed_1695645021215/work
-pycparser @ file:///home/conda/feedstock_root/build_artifacts/pycparser_1711811537435/work
-pydantic @ file:///home/conda/feedstock_root/build_artifacts/pydantic_1726601062926/work
-pydantic_core @ file:///Users/runner/miniforge3/conda-bld/pydantic-core_1726525022778/work
-Pygments @ file:///home/conda/feedstock_root/build_artifacts/pygments_1714846767233/work
-PySocks @ file:///home/conda/feedstock_root/build_artifacts/pysocks_1661604839144/work
-regex @ file:///Users/runner/miniforge3/conda-bld/regex_1726095610013/work
-requests @ file:///home/conda/feedstock_root/build_artifacts/requests_1717057054362/work
-rich @ file:///home/conda/feedstock_root/build_artifacts/rich_1726066019428/work/dist
-shellingham @ file:///home/conda/feedstock_root/build_artifacts/shellingham_1698144360966/work
-smart_open @ file:///home/conda/feedstock_root/build_artifacts/smart_open_split_1711455333245/work/dist
-spacy @ file:///Users/runner/miniforge3/conda-bld/spacy_1722252036843/work
-spacy-legacy @ file:///home/conda/feedstock_root/build_artifacts/spacy-legacy_1674550301837/work
-spacy-loggers @ file:///home/conda/feedstock_root/build_artifacts/spacy-loggers_1694527114282/work
-srsly @ file:///Users/runner/miniforge3/conda-bld/srsly_1695654012378/work
+hyperframe 
+idna 
+importlib_metadata 
+itsdangerous 
+Jinja2 
+joblib 
+langcodes 
+markdown-it-py 
+MarkupSafe 
+mdurl 
+murmurhash 
+nltk 
+numpy 
+packaging 
+preshed 
+pycparser 
+pydantic 
+pydantic_core 
+Pygments 
+PySocks 
+regex 
+requests 
+rich 
+shellingham 
+smart_open 
+spacy 
+spacy-legacy 
+spacy-loggers 
+srsly 
 textblob==0.15.3
-thinc @ file:///Users/runner/miniforge3/conda-bld/thinc_1720971412129/work
-tqdm @ file:///home/conda/feedstock_root/build_artifacts/tqdm_1722737464726/work
+thinc 
+tqdm 
 typer==0.12.5
 typer-slim==0.12.5
-typing_extensions @ file:///home/conda/feedstock_root/build_artifacts/typing_extensions_1717802530399/work
-urllib3 @ file:///home/conda/feedstock_root/build_artifacts/urllib3_1726496430923/work
-wasabi @ file:///Users/runner/miniforge3/conda-bld/wasabi_1715409692705/work
-weasel @ file:///home/conda/feedstock_root/build_artifacts/weasel_1719987001521/work
-Werkzeug @ file:///home/conda/feedstock_root/build_artifacts/werkzeug_1724330738730/work
-wrapt @ file:///Users/runner/miniforge3/conda-bld/wrapt_1724957923224/work
-zipp @ file:///home/conda/feedstock_root/build_artifacts/zipp_1726248574750/work
+typing_extensions 
+urllib3 
+wasabi 
+weasel 
+Werkzeug 
+wrapt 
+zipp 
 zstandard==0.23.0
