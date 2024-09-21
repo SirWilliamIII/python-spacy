@@ -3,7 +3,6 @@ from spacy import displacy
 from flask import Flask, render_template, request, jsonify
 from textblob import TextBlob
 from spacy.lang.en.stop_words import STOP_WORDS
-import en_core_web_sm
 from collections import Counter
 from string import punctuation
 import re
