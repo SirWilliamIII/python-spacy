@@ -20,7 +20,7 @@ def index():
         
         # Generate dependency parse
         options = {"compact": True, "bg": "#09a3d5",
-           "color": "white", "font": "Source Sans Pro", "distance": 90}
+           "color": "white", "distance": 90}
 
         dep_svg = displacy.render(doc, style="dep", options=options)
         
