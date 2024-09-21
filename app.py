@@ -9,7 +9,7 @@ from string import punctuation
 import re
 
 # Load English tokenizer, tagger, parser, NER and word vectors
-nlp = en_core_web_sm.load()
+nlp = spacy.load('en_core_web_sm')
 
 app = Flask(__name__)
 
