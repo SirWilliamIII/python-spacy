@@ -12,6 +12,7 @@ colorama
 confection
 cymem
 Flask
+gunicorn
 h2
 hpack
 hyperframe
