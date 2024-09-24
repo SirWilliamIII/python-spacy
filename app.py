@@ -12,6 +12,7 @@ nlp = spacy.load('en_core_web_sm')
 
 app = Flask(__name__)
 
+
 @app.route("/", methods=["GET", "POST"])
 def index():
     if request.method == "POST":
@@ -43,6 +44,14 @@ def index():
         
         # Get text summary
         summary = summarize_text(doc)
+
+        lemmatized_text = get_lemmatized_text(doc)
+
+        lemmatized_score= get_lemmatized_score(doc)
+        pos_tag=get_pos_tags(doc)
+        
+
+        
         
         return render_template("result.html", 
                                dep_svg=dep_svg, 
@@ -51,6 +60,9 @@ def index():
                                word_freq=word_freq,
                                pos_tags=pos_tags,
                                complexity=complexity,
+                               lemmatized_text=lemmatized_text,
+                               lemmatized_score=lemmatized_score,
+                               pos_tag=pos_tag,
                                summary=summary)
     
     return render_template("index.html")
@@ -60,7 +72,22 @@ def get_word_frequency(doc):
     return Counter(words).most_common(5)
 
 def get_pos_tags(doc):
-    return [(token.text, token.pos_) for token in doc]
+    parts_of_speech = [(token.text, token.pos_) for token in doc]
+    pos_tag = ['PROPN', 'ADJ', 'NOUN', 'VERB', 'PUNCT', 'NUM', 'ADV', 'PRON', 'ADP', 'DET', 'AUX', 'CCONJ', 'SPACE', 'PART']
+
+    pos_counts = {}
+    
+    for tag, words in parts_of_speech:
+        if words in pos_tag:
+            pos_counts[words] = pos_counts.get(words, 0) + 1
+        else:
+            pos_counts[words] = pos_counts.get('OTHER', 0) + 1  
+            
+    tags = [f"{pos}: {count}" for pos, count in pos_counts.items()]
+    sorted_tags = sorted(tags, key=lambda x: int(x.split(": ")[1]), reverse=True)
+    
+    return sorted_tags
+
 
 def get_text_complexity(doc):
     num_words = len([token for token in doc if not token.is_punct])
@@ -84,6 +111,17 @@ def calculate_readability_score(doc):
         return 0
     
     return round(0.39 * (num_words / num_sentences) + 11.8 * (num_syllables / num_words) - 15.59, 2)
+
+
+def get_lemmatized_text(doc):
+    return " ".join([token.lemma_ for token in doc if token])
+
+
+def get_lemmatized_score(doc):
+    lemmatized_words = sum(token.text != token.lemma_ for token in doc if token.is_alpha)
+    total_words = sum(1 for token in doc if token.is_alpha)
+    score = (lemmatized_words / total_words) * 100 if total_words > 0 else 0
+    return(f"Lemmatized score: {str(round(score, 3))}  Lemmatized words: {str(lemmatized_words)} Total Words: {str(total_words)}"); 
 
 def count_syllables(word):
     # Simple syllable counting heuristic

@@ -5,15 +5,36 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.tailwindcss.com"></script>
   <title>Sentence Analysis</title>
+  <style>
+    body, html {
+      height: 100%;
+      margin: 0;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+    }
+    .content {
+      width: 100%;
+      max-width: 600px;
+      padding: 20px;
+    }
+    .spaced {
+      margin-top: 20px;
+    }
+  </style>
 </head>
-<body class="bg-gray-100 min-h-screen">
-  <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-    <div class="px-4 py-6 sm:px-0">
-      <h1 class="text-3xl font-bold mb-4">Sentence Analysis</h1>
-      <form method="POST">
-        <textarea name="text" rows="4" cols="50"></textarea><br>
-        <input type="submit" value="Analyze">
-    </form>
+<body class="bg-gray-100">
+  <div class="container">
+    <div class="content bg-white shadow-md rounded-lg p-6">
+      <h1 class="text-3xl font-bold mb-8 text-center">Sentence Analysis</h1>
+      <form method="POST" class="flex flex-col items-center">
+        <textarea name="text" rows="4" cols="50" class="w-full p-2 border rounded mb-4"></textarea>
+        <input type="submit" value="Analyze" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+      </form>
     </div>
   </div>
 </body>

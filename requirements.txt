@@ -42,7 +42,7 @@ requests==2.31.0
 rich==13.4.2
 shellingham==1.5.0
 smart_open==6.3.0
-spacy==3.7.4
+spacy
 spacy-loggers==1.0.4
 srsly==2.4.7
 textblob==0.17.1
