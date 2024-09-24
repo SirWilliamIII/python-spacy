@@ -1,10 +1,16 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
 import spacy
 from spacy import displacy
 from flask import Flask, render_template, request, jsonify
 from textblob import TextBlob
+from wordcloud import WordCloud
 from spacy.lang.en.stop_words import STOP_WORDS
 from collections import Counter
 from string import punctuation
+from spacy.language import Language
 import re
 
 # Load English tokenizer, tagger, parser, NER and word vectors
@@ -20,11 +26,9 @@ def index():
         doc = nlp(text)
         
         # Generate dependency parse
-        options = {"compact": True, "bg": "#09a3d5",
-           "color": "white", "distance": 90}
+        options = {"compact": True, "bg": "#09a3d5", "color": "white", "distance": 90}
 
         dep_svg = displacy.render(doc, style="dep", options=options)
-        
         
         # Generate named entity recognition
         ner_svg = displacy.render(doc, style="ent", jupyter=False, options={"distance": 90})
@@ -32,6 +36,9 @@ def index():
         # Perform sentiment analysis
         blob = TextBlob(text)
         sentiment = blob.sentiment.polarity
+
+
+        
         
         # Get word frequency
         word_freq = get_word_frequency(doc)
@@ -46,10 +53,9 @@ def index():
         summary = summarize_text(doc)
 
         lemmatized_score= get_lemmatized_score(doc)
-        pos_tag=get_pos_tags(doc)
-        
 
-        
+        pos_tag=get_pos_tags(doc)
+
         
         return render_template("result.html", 
                                dep_svg=dep_svg, 
@@ -68,20 +74,30 @@ def get_word_frequency(doc):
     words = [token.text for token in doc if token.is_alpha and token.text.lower() not in STOP_WORDS]
     return Counter(words).most_common(5)
 
+
+@Language.factory(doc)
+def get_sentiment_score(doc):
+    sentiment_analyzer = nlp.create_pipe("sentiment_analyzer")
+    nlp.add_pipe(sentiment_analyzer) 
+    sentiment = sentiment_analyzer(doc)
+    print(sentiment.score)
+
+
 def get_pos_tags(doc):
     parts_of_speech = [(token.text, token.pos_) for token in doc]
     pos_tag = ['PROPN', 'ADJ', 'NOUN', 'VERB', 'PUNCT', 'NUM', 'ADV', 'PRON', 'ADP', 'DET', 'AUX', 'CCONJ', 'SPACE', 'PART']
 
     pos_counts = {}
+    sorted_tags = []
     
     for tag, words in parts_of_speech:
         if words in pos_tag:
-            pos_counts[words] = pos_counts.get(words, 0) + 1
-        else:
-            pos_counts[words] = pos_counts.get('OTHER', 0) + 1  
-            
-    tags = [f"{pos}: {count}" for pos, count in pos_counts.items()]
-    sorted_tags = sorted(tags, key=lambda x: int(x.split(": ")[1]), reverse=True)
+            if words in pos_counts:
+                pos_counts[words] += 1
+            else:
+                pos_counts[words] = 1
+            tags = [f"{pos}: {count}" for pos, count in pos_counts.items()]
+            sorted_tags = sorted(tags, key=lambda x: int(x.split(": ")[1]), reverse=True)
     
     return sorted_tags
 
@@ -143,16 +159,18 @@ def summarize_text(doc):
             continue
         if(token.pos_ in pos_tag):
             keyword.append(token.text)
-    
+    print(keyword)
     freq_word = Counter(keyword)
     max_freq = Counter(keyword).most_common(1)[0][1]
     for word in freq_word.keys():  
         freq_word[word] = (freq_word[word]/max_freq)
         
     sent_strength = {}
+
     for sent in doc.sents:
         for word in sent:
             if word.text in freq_word.keys():
+                print(sent)
                 if sent in sent_strength.keys():
                     sent_strength[sent] += freq_word[word.text]
                 else:
@@ -162,6 +180,7 @@ def summarize_text(doc):
     summary = " ".join([str(sentence[0]) for sentence in summarized_sentences])
     
     return summary
+
 
 @app.route("/api/analyze", methods=["POST"])
 def api_analyze():
@@ -180,4 +199,4 @@ def api_analyze():
     return jsonify(analysis)
 
 if __name__ == "__main__":
-    app.run(debug=True, port=4444)
+    app.run(port=4000,debug=True)
