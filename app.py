@@ -35,11 +35,9 @@ def index():
         
         # Perform sentiment analysis
         blob = TextBlob(text)
+
         sentiment = blob.sentiment.polarity
 
-
-        
-        
         # Get word frequency
         word_freq = get_word_frequency(doc)
         
@@ -56,6 +54,8 @@ def index():
 
         pos_tag=get_pos_tags(doc)
 
+        sentiment_score=calc_sentiment_score(doc)
+
         
         return render_template("result.html", 
                                dep_svg=dep_svg, 
@@ -66,23 +66,24 @@ def index():
                                complexity=complexity,
                                lemmatized_score=lemmatized_score,
                                pos_tag=pos_tag,
+                               calc_sentiment_score=sentiment_score,
                                summary=summary)
     
     return render_template("index.html")
+
 
 def get_word_frequency(doc):
     words = [token.text for token in doc if token.is_alpha and token.text.lower() not in STOP_WORDS]
     return Counter(words).most_common(5)
 
 
-@Language.factory(doc)
-def get_sentiment_score(doc):
-    sentiment_analyzer = nlp.create_pipe("sentiment_analyzer")
-    nlp.add_pipe(sentiment_analyzer) 
-    sentiment = sentiment_analyzer(doc)
-    print(sentiment.score)
+
+def calc_sentiment_score(doc):
+    blob = TextBlob(doc.text)
+    return f"Polarity: {blob.sentiment.polarity}, Subjectivity: {blob.sentiment.subjectivity}"
 
 
+    
 def get_pos_tags(doc):
     parts_of_speech = [(token.text, token.pos_) for token in doc]
     pos_tag = ['PROPN', 'ADJ', 'NOUN', 'VERB', 'PUNCT', 'NUM', 'ADV', 'PRON', 'ADP', 'DET', 'AUX', 'CCONJ', 'SPACE', 'PART']
