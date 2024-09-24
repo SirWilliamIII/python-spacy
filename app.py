@@ -56,6 +56,8 @@ def index():
 
         sentiment_score=calc_sentiment_score(doc)
 
+        get_ents = get_ents(doc)
+
         
         return render_template("result.html", 
                                dep_svg=dep_svg, 
@@ -66,6 +68,7 @@ def index():
                                complexity=complexity,
                                lemmatized_score=lemmatized_score,
                                pos_tag=pos_tag,
+                               get_ents=get_ents,
                                calc_sentiment_score=sentiment_score,
                                summary=summary)
     
@@ -128,6 +131,8 @@ def calculate_readability_score(doc):
 
 
 def get_lemmatized_text(doc):
+    for token in doc:
+        print(token.text, '\t', token.pos_, '\t', token.lemma, '\t', token.lemma_)
     return " ".join([token.lemma_ for token in doc if token])
 
 
@@ -181,6 +186,13 @@ def summarize_text(doc):
     summary = " ".join([str(sentence[0]) for sentence in summarized_sentences])
     
     return summary
+
+
+def get_ents(doc):
+    n = ""
+    for token in doc.ents:
+        n += ("Text: " + " " + str(token.text) + " " + "Label: " + str(token.label) + "") + ('\n')
+    return n
 
 
 @app.route("/api/analyze", methods=["POST"])
