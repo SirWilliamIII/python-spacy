@@ -45,8 +45,6 @@ def index():
         # Get text summary
         summary = summarize_text(doc)
 
-        lemmatized_text = get_lemmatized_text(doc)
-
         lemmatized_score= get_lemmatized_score(doc)
         pos_tag=get_pos_tags(doc)
         
@@ -60,7 +58,6 @@ def index():
                                word_freq=word_freq,
                                pos_tags=pos_tags,
                                complexity=complexity,
-                               lemmatized_text=lemmatized_text,
                                lemmatized_score=lemmatized_score,
                                pos_tag=pos_tag,
                                summary=summary)
@@ -183,4 +180,4 @@ def api_analyze():
     return jsonify(analysis)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, port=4444)
