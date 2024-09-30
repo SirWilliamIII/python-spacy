@@ -10,8 +10,10 @@ WORKDIR /app
 COPY . .
 
 # This Dockerfile exposes port 5001 to allow external access to the application running inside the container.
-# Download the English language model for spaCy
+EXPOSE 5001
+
 # Install dependencies and download the English language model for spaCy
+# Download the English language model for spaCy
 RUN pip3 install --no-cache-dir -r requirements.txt && python -m spacy download en_core_web_sm
 
 # Run app.py when the container launches
