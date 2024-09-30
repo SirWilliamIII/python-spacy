@@ -56,7 +56,7 @@ def index():
 
         sentiment_score=calc_sentiment_score(doc)
 
-        get_ents = get_ents(doc)
+        
 
         
         return render_template("result.html", 
@@ -68,7 +68,7 @@ def index():
                                complexity=complexity,
                                lemmatized_score=lemmatized_score,
                                pos_tag=pos_tag,
-                               get_ents=get_ents,
+                               
                                calc_sentiment_score=sentiment_score,
                                summary=summary)
     
@@ -157,34 +157,41 @@ def count_syllables(word):
     return max(count, 1)
 
 def summarize_text(doc):
-    # Simple extractive summarization
-    keyword = []
+    keywords = extract_keywords(doc)
+    freq_word = calculate_word_frequencies(keywords)
+    sent_strength = calculate_sentence_strength(doc, freq_word)
+    summary = generate_summary(sent_strength)
+    return summary
+
+def extract_keywords(doc):
+    keywords = []
     pos_tag = ['PROPN', 'ADJ', 'NOUN', 'VERB']
     for token in doc:
-        if(token.text in STOP_WORDS or token.text in punctuation):
-            continue
-        if(token.pos_ in pos_tag):
-            keyword.append(token.text)
-    print(keyword)
-    freq_word = Counter(keyword)
-    max_freq = Counter(keyword).most_common(1)[0][1]
-    for word in freq_word.keys():  
-        freq_word[word] = (freq_word[word]/max_freq)
-        
-    sent_strength = {}
+        if token.text not in STOP_WORDS and token.text not in punctuation and token.pos_ in pos_tag:
+            keywords.append(token.text)
+    return keywords
 
+def calculate_word_frequencies(keywords):
+    freq_word = Counter(keywords)
+    max_freq = freq_word.most_common(1)[0][1]
+    for word in freq_word.keys():
+        freq_word[word] = freq_word[word] / max_freq
+    return freq_word
+
+def calculate_sentence_strength(doc, freq_word):
+    sent_strength = {}
     for sent in doc.sents:
         for word in sent:
             if word.text in freq_word.keys():
-                print(sent)
                 if sent in sent_strength.keys():
                     sent_strength[sent] += freq_word[word.text]
                 else:
                     sent_strength[sent] = freq_word[word.text]
-    
+    return sent_strength
+
+def generate_summary(sent_strength):
     summarized_sentences = sorted(sent_strength.items(), key=lambda x: x[1], reverse=True)[:2]
     summary = " ".join([str(sentence[0]) for sentence in summarized_sentences])
-    
     return summary
 
 
