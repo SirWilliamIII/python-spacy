@@ -10,7 +10,7 @@ WORKDIR /app
 COPY . .
 
 # This Dockerfile exposes port 5001 to allow external access to the application running inside the container.
-EXPOSE 5001
+EXPOSE 5000
 
 # Install dependencies and download the English language model for spaCy
 # Download the English language model for spaCy
