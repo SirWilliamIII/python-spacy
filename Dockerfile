@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 
 # Use an official Python runtime as a parent image
-FROM python:3.10.14
+FROM python:3.10.14-slim
 
 # Set the working directory in the container
 WORKDIR /app

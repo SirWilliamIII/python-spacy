@@ -1,65 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <title>Analysis Result</title>
-</head>
-<body class="bg-gray-100 min-h-screen">
-  <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-    <div class="px-4 py-6 sm:px-0">
-      <h1 class="text-3xl font-bold mb-4">Analysis Result</h1>
-      
-      <h2 class="text-2xl font-bold mt-8 mb-2">Summary:</h2>
-      <p>{{ summary }}</p>
-      
-      <h2 class="text-2xl font-bold mt-8 mb-2">Dependency Parse</h2>
-      {{ dep_svg|safe }}
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Analysis Result</title>
+  </head>
+  <body class="bg-gray-100 min-h-screen">
+    <div class="mx-auto py-6 sm:px-6">
+      <div class="px-4 py-6 sm:px-0">
+        <h1 class="text-3xl font-bold mb-4">Analysis Result</h1>
 
-      <h2 class="text-2xl font-bold mt-8 mb-2">Named Entity Recognition</h2> 
-      {{ ner_svg|safe }}
+        <h2 class="text-2xl font-bold mt-8 mb-2">Summary:</h2>
+        <p>{{ summary }}</p>
 
-      <h2 class="text-2xl font-bold mt-8 mb-2">Sentiment Analysis</h2>
+        <h2 class="text-2xl font-bold mt-8 mb-2">Dependency Parse</h2>
+        {{ dep_svg|safe }}
 
-      <p>Calc Sentiment Score: {{ calc_sentiment_score }}</p>
+        <h2 class="text-2xl font-bold mt-8 mb-2">Named Entity Recognition</h2>
+        {{ ner_svg|safe }}
 
-      <h2> class="text-2xl font-bold mt-8 mb-2">Entity Analysis</h2>
-      <p>{{ entity_analysis }}</p>
-      <h2 class="text-2xl font-bold mt-8 mb-2">Word Frequency</h2>
-      <ul class="list-disc ml-6">
-        {% for word in word_freq %}
-          <li>{{ word }}: </li>
-        {% endfor %}
-      </ul>
-      <div class="mt-8">
-        <h2 class="text-2xl font-bold mb-2">Lemmatization</h2>
-        <div class="flex flex-wrap">
-          <p>{{ lemmatized_score }}
+        <h2 class="text-2xl font-bold mt-8 mb-2">Sentiment Analysis</h2>
+
+        <ul>
+          Calc Sentiment Score:
+          <li>{{ calc_sentiment_score }}</li>
+        </ul>
+
+        <h2 class="text-2xl font-bold mt-8 mb-2">Entity Analysis</h2>
+        <ul>
+          <li>Entity: {{ entity }}</li>
+          <li>Entity Type: {{ entity_type }}</li>
+          <li>Entity Sentiment: {{ entity_sentiment }}</li>
+        <p>{{ entity_analysis }}</p>
+
+        <h2 class="text-2xl font-bold mt-8 mb-2">Word Frequency</h2>
+        <ul class="list-disc ml-6">
+          {% for word in word_freq %}
+          <li>{{ word }}:</li>
+          {% endfor %}
+        </ul>
+        <div class="mt-8">
+          <h2 class="text-2xl font-bold mb-2">Lemmatization</h2>
+          <div class="flex flex-wrap">
+            <p>{{ lemmatized_score }}</p>
+          </div>
         </div>
-        </div>
-        
-      <h2 class="text-2xl font-bold mt-8 mb-2">Text Complexity</h2>
-      <ul class="list-disc ml-6">
-        <li>Number of words: {{ complexity.num_words }}</li>
-        <li>Number of sentences: {{ complexity.num_sentences }}</li>
-        <li>Average word length: {{ complexity.avg_word_length }}</li>
-        <li>Readability score: {{ complexity.readability_score }}</li>
-      </ul>
-    
-      <div class="mt-8">
-        <h2 class="text-2xl font-bold mb-2">Part-of-Speech Tags</h2>
-        <div class="flex flex-wrap">
-          <p>{{ ', '.join(pos_tag) }}</p>
-        </div>
-      </div>
 
-      <div class="mt-8">
-        <a href="/" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-          Analyze another sentence
-        </a>
+        <h2 class="text-2xl font-bold mt-8 mb-2">Text Complexity</h2>
+        <ul class="list-disc ml-6">
+          <li>Number of words: {{ complexity.num_words }}</li>
+          <li>Number of sentences: {{ complexity.num_sentences }}</li>
+          <li>Average word length: {{ complexity.avg_word_length }}</li>
+          <li>Readability score: {{ complexity.readability_score }}</li>
+        </ul>
+
+        <div class="mt-8">
+          <h2 class="text-2xl font-bold mb-2">Part-of-Speech Tags</h2>
+          <div class="flex flex-wrap">
+            <ul>
+            {% for p in pos_tag %}
+            <li>{{ p }}</li>
+            {% endfor %}
+          </div>
+        </div>
+
+        <div class="mt-8">
+          <a
+            href="/"
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            Analyze another sentence
+          </a>
+        </div>
       </div>
     </div>
-  </div>
-</body>
+  </body>
 </html>
