@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 import spacy
+import os
 from spacy import displacy
 from flask import Flask, render_template, request, jsonify
 from textblob import TextBlob
@@ -220,4 +221,5 @@ def api_analyze():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
