@@ -1,16 +1,15 @@
 # syntax=docker/dockerfile:1
-FROM python:3.10.14-slim
+FROM python:3.10.14
 
 WORKDIR /app
 
-COPY requirements.txt .
-
-RUN pip install -r requirements.txt 
-
-RUN python -m spacy download en_core_web_sm
-
 COPY . .
 
-EXPOSE 5001
+EXPOSE 5000
 
-CMD ["flask", "run", "--host=0.0.0.0", "--port=5001"]
+RUN pip3 install --no-cache-dir -r requirements.txt && python -m spacy download en_core_web_sm
+
+CMD ["python3", "app.py"]
+
+
+
